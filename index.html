@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qoyod.ai - Premium AI Domain</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Cairo', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 80%, #00ff87 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, #0099ff 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, #ff0080 0%, transparent 50%);
+            opacity: 0.1;
+            animation: bgMove 20s ease-in-out infinite;
+        }
+
+        @keyframes bgMove {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(5deg) scale(1.1); }
+        }
+
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.02;
+            background-image: 
+                radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0);
+            background-size: 20px 20px;
+            animation: noise 0.2s infinite linear;
+        }
+
+        @keyframes noise {
+            0% { transform: translate(0, 0); }
+            10% { transform: translate(-5px, -10px); }
+            20% { transform: translate(-10px, 5px); }
+            30% { transform: translate(5px, -5px); }
+            40% { transform: translate(-5px, 15px); }
+            50% { transform: translate(-10px, 5px); }
+            60% { transform: translate(15px, 0); }
+            70% { transform: translate(0, 10px); }
+            80% { transform: translate(-15px, 0); }
+            90% { transform: translate(10px, 5px); }
+            100% { transform: translate(5px, 0); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .glitch-wrapper {
+            position: relative;
+        }
+
+        .domain-title {
+            font-size: 8rem;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            background: linear-gradient(135deg, #00ff87, #0099ff, #ff0080);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s ease infinite, float 6s ease-in-out infinite;
+            position: relative;
+        }
+
+        .domain-title::before,
+        .domain-title::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff0080, #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .domain-title::before {
+            animation: glitch1 2s infinite;
+        }
+
+        .domain-title::after {
+            animation: glitch2 2s infinite;
+        }
+
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes glitch1 {
+            0%, 100% { transform: translate(0); opacity: 1; }
+            20% { transform: translate(-2px, 2px); opacity: 0.8; }
+            40% { transform: translate(-2px, -2px); opacity: 0.8; }
+            60% { transform: translate(2px, 2px); opacity: 0.8; }
+            80% { transform: translate(2px, -2px); opacity: 0.8; }
+        }
+
+        @keyframes glitch2 {
+            0%, 100% { transform: translate(0); opacity: 1; }
+            25% { transform: translate(2px, 0); opacity: 0.7; }
+            50% { transform: translate(-2px, 2px); opacity: 0.7; }
+            75% { transform: translate(2px, -2px); opacity: 0.7; }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #888;
+            margin-top: 2rem;
+            font-weight: 300;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #666;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, #ffffff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(20px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 255, 135, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 255, 135, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .feature-desc {
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 2rem 1rem;
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00ff87, #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .stat-label {
+            color: #888;
+            font-weight: 300;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .price-display {
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff0080, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 2rem 0;
+            animation: pulse-price 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-price {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: 2px solid;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: transparent;
+            color: #00ff87;
+            border-color: #00ff87;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #00ff87;
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn-primary:hover::before {
+            left: 0;
+        }
+
+        .btn-primary:hover {
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 135, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #0099ff;
+            border-color: #0099ff;
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #0099ff;
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn-secondary:hover::before {
+            left: 0;
+        }
+
+        .btn-secondary:hover {
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 153, 255, 0.3);
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .lang-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .domain-title {
+                font-size: 4rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .price-display {
+                font-size: 3rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .lang-toggle {
+                top: 1rem;
+                right: 1rem;
+                padding: 0.4rem 1rem;
+            }
+        }
+
+        /* English styles */
+        .english {
+            direction: ltr;
+        }
+
+        .english .lang-toggle {
+            right: auto;
+            left: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .english .lang-toggle {
+                left: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="noise"></div>
+    
+    <button class="lang-toggle" onclick="toggleLanguage()">English</button>
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <div class="glitch-wrapper">
+                <h1 class="domain-title" data-text="Qoyod.ai">Qoyod.ai</h1>
+            </div>
+            <p class="subtitle" id="subtitle"> دومين الذكاء الاصطناعي المتميز للبيع</p>
+        </div>
+        <div class="scroll-indicator">
+            <div style="font-size: 2rem;">↓</div>
+        </div>
+    </header>
+
+
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="container">
+            <h2 class="section-title" id="cta-title">اشتري الآن</h2>
+            <p id="cta-desc">فرصة استثمارية لا تُعوض في عالم الذكاء الاصطناعي</p>
+            <div class="price-display" id="price">اتصل للسعر</div>
+            <div class="cta-buttons">
+                <a href="mailto:aidomainsforsale@gmail.com" class="btn btn-primary" id="email-btn">راسلنا</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p id="footer-text">© 2025 Qoyod.ai - متاح للبيع</p>
+        </div>
+    </footer>
+
+    <script>
+        let isEnglish = false;
+
+        const translations = {
+            ar: {
+                subtitle: "دومين الذكاء الاصطناعي المتميز للبيع",
+                featuresTitle: "لماذا Qoyod.ai؟",
+                feature1Title: "دقة المعنى",
+                feature1Desc: 'كلمة "قيود" تعني البيانات والسجلات باللغة العربية - مثالي لتطبيقات الذكاء الاصطناعي',
+                feature2Title: "سهولة التذكر",
+                feature2Desc: "5 أحرف فقط، نطق واضح، يسهل حفظه في جميع اللغات",
+                feature3Title: "نطاق .ai",
+                feature3Desc: "النطاق الأكثر طلباً في مجال الذكاء الاصطناعي والتكنولوجيا",
+                feature4Title: "استثمار مربح",
+                feature4Desc: "قيمة النطاقات القصيرة في .ai تتزايد باستمرار",
+                ctaTitle: "اشتري الآن",
+                ctaDesc: "فرصة استثمارية لا تُعوض في عالم الذكاء الاصطناعي",
+                price: "اتصل للسعر",
+                emailBtn: "راسلنا",
+                whatsappBtn: "واتساب",
+                footerText: "© 2025 Qoyod.ai - متاح للبيع"
+            },
+            en: {
+                subtitle: "Premium AI Domain Name ForSale",
+                featuresTitle: "Why Qoyod.ai?",
+                feature1Title: "Meaningful Name",
+                feature1Desc: '"Qoyod" means data/records in Arabic - perfect for AI applications',
+                feature2Title: "Easy to Remember",
+                feature2Desc: "Only 5 letters, clear pronunciation, easy to remember in all languages",
+                feature3Title: ".ai Domain",
+                feature3Desc: "Most sought-after domain extension in AI and technology",
+                feature4Title: "Profitable Investment",
+                feature4Desc: "Short .ai domain values continue to increase",
+                ctaTitle: "Buy Now",
+                ctaDesc: "Unique investment opportunity in the AI world",
+                price: "Contact for Price",
+                emailBtn: "Email Us",
+                whatsappBtn: "WhatsApp",
+                footerText: "© 2025 Qoyod.ai - Available for Sale"
+            }
+        };
+
+        function toggleLanguage() {
+            const body = document.body;
+            const html = document.documentElement;
+            const button = document.querySelector('.lang-toggle');
+            
+            isEnglish = !isEnglish;
+            
+            if (isEnglish) {
+                html.setAttribute('lang', 'en');
+                html.setAttribute('dir', 'ltr');
+                body.classList.add('english');
+                button.textContent = 'العربية';
+                
+                // Update content
+                Object.keys(translations.en).forEach(key => {
+                    const element = document.getElementById(key.replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, ''));
+                    if (element) {
+                        element.textContent = translations.en[key];
+                    }
+                });
+                
+            } else {
+                html.setAttribute('lang', 'ar');
+                html.setAttribute('dir', 'rtl');
+                body.classList.remove('english');
+                button.textContent = 'English';
+                
+                // Update content
+                Object.keys(translations.ar).forEach(key => {
+                    const element = document.getElementById(key.replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, ''));
+                    if (element) {
+                        element.textContent = translations.ar[key];
+                    }
+                });
+            }
+        }
+
+        // Smooth scroll
+        document.querySelector('.scroll-indicator').addEventListener('click', () => {
+            document.querySelector('.section').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        });
+
+        // Parallax effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const bgAnimation = document.querySelector('.bg-animation');
+            const noise = document.querySelector('.noise');
+            
+            bgAnimation.style.transform = `translateY(${scrolled * 0.5}px)`;
+            noise.style.transform = `translateY(${scrolled * 0.3}px)`;
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe feature cards
+        document.querySelectorAll('.feature-card, .stat-item').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
